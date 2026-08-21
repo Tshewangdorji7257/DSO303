@@ -1,6 +1,6 @@
 # AWS DSO303 Practical Laboratory Report
 
-## Lab 01 — Identity and Access Management (IAM)
+## Lab 01: Identity and Access Management (IAM)
 
 ---
 
@@ -140,7 +140,7 @@ This step ensures that the correct environment is being used before beginning th
 
 ---
 
-## Step 2 — Verify Docker and Docker Compose
+## Step 2: Verify Docker and Docker Compose
 
 Docker and Docker Compose were verified using:
 
@@ -155,7 +155,7 @@ Docker is required because Floci runs as a Docker container, while Docker Compos
 
 ---
 
-## Step 3 — Prepare the Course Directory
+## Step 3: Prepare the Course Directory
 
 The course directory was created and used as the main working directory:
 
@@ -187,7 +187,7 @@ The `outputs/` directory is specifically protected because it can contain access
 
 ---
 
-## Step 4 — Configure Git Repository
+## Step 4: Configure Git Repository
 
 Git was initialized for the project:
 
@@ -199,7 +199,7 @@ The repository was used to maintain the practical files and configuration while 
 
 ---
 
-## Step 5 — Configure `.gitignore`
+## Step 5: Configure `.gitignore`
 
 A `.gitignore` file was created before storing credentials or sensitive output.
 
@@ -209,7 +209,7 @@ The lab specifically requires `outputs/` to remain outside Git because it can co
 
 ---
 
-## Step 6 — Configure Floci
+## Step 6: Configure Floci
 
 Floci was configured using Docker Compose with persistent storage.
 
@@ -225,7 +225,7 @@ The lab requires persistence to be proven by creating a resource, restarting Flo
 
 ---
 
-## Step 7 — Start Floci
+## Step 7: Start Floci
 
 The Floci environment was started using the provided setup script:
 
@@ -240,11 +240,11 @@ The service was made available locally on port:
 4566
 ```
 
-![alt text](image.png)
+![alt text](../../screenshots/image.png)
 
 ---
 
-## Step 8 — Configure the AWS CLI
+## Step 8: Configure the AWS CLI
 
 The AWS CLI was configured to communicate with the local Floci endpoint.
 
@@ -254,7 +254,7 @@ The environment was then checked using the provided identity verification script
 
 ---
 
-## Step 9 — Verify the AWS Identity
+## Step 9: Verify the AWS Identity
 
 The current AWS identity was checked using:
 
@@ -271,12 +271,12 @@ The expected Floci account is:
 This provides evidence that the AWS CLI is operating against the local Floci environment.
 
 
-![alt text](image-1.png)
+![alt text](../../screenshots/image-1.png)
 
 
 ---
 
-## Step 10 — Verify Floci Storage
+## Step 10: Verify Floci Storage
 
 The storage configuration was checked using:
 
@@ -288,7 +288,7 @@ The purpose of this step was to verify that the Floci storage configuration was 
 
 ---
 
-## Step 11 — Verify Environment Isolation
+## Step 11: Verify Environment Isolation
 
 The environment was checked to ensure that the AWS CLI was communicating with Floci rather than a real AWS account.
 
@@ -296,7 +296,7 @@ This is an important safety step because the practical uses AWS CLI commands tha
 
 ---
 
-## Step 12 — Create and Verify Persistent Resources
+## Step 12: Create and Verify Persistent Resources
 
 A test IAM resource was created before restarting Floci.
 
@@ -306,7 +306,7 @@ The resource remaining available after the restart demonstrated that persistent 
 
 ---
 
-## Step 13 — Restart Floci
+## Step 13: Restart Floci
 
 The Floci service was stopped and restarted using the provided scripts.
 
@@ -314,7 +314,7 @@ The persistence configuration ensured that previously created IAM resources were
 
 ---
 
-## Step 14 — Prove Persistence
+## Step 14: Prove Persistence
 
 The previously created resource was queried after restarting Floci.
 
@@ -332,14 +332,14 @@ Resource still exists
 
 This proved that the IAM environment was persistent. The lab identifies this persistence test as an important checkpoint before proceeding to Part B. 
 
-![alt text](image-3.png)
-![alt text](image-2.png)
-![alt text](image-4.png)
+![alt text](../../screenshots/image-3.png)
+![alt text](../../screenshots/image-2.png)
+![alt text](../../screenshots/image-4.png)
 
 
 ---
 
-## Step 15 — Completed Part A
+## Step 15: Completed Part A
 
 At the end of Part A, the environment contained:
 
@@ -357,9 +357,9 @@ The environment was therefore ready for the IAM implementation.
 
 ---
 
-# Part B — Building the IAM Foundation
+# Part B: Building the IAM Foundation
 
-## Step 16 — Understand IAM Concepts
+## Step 16: Understand IAM Concepts
 
 The four main IAM building blocks were studied:
 
@@ -386,7 +386,7 @@ Every IAM role requires an appropriate trust policy and permissions policy.
 
 ---
 
-## Step 17 — Understand ARN Structure
+## Step 17: Understand ARN Structure
 
 Amazon Resource Names (ARNs) were studied because they uniquely identify AWS resources.
 
@@ -400,7 +400,7 @@ ARNs are used when attaching policies and referring to specific AWS resources.
 
 ---
 
-## Step 18 — Create IAM Groups
+## Step 18: Create IAM Groups
 
 The following groups were created:
 
@@ -414,7 +414,7 @@ Groups were used to organize users according to their responsibilities.
 
 ---
 
-## Step 19 — Create IAM Users
+## Step 19: Create IAM Users
 
 The following users were created:
 
@@ -428,7 +428,7 @@ These users represent different personnel working on the USMS project.
 
 ---
 
-## Step 20 — Add Users to Groups
+## Step 20: Add Users to Groups
 
 Users were assigned to the appropriate groups.
 
@@ -436,7 +436,7 @@ This provides centralized permission management because policies can be attached
 
 ---
 
-## Step 21 — Tag IAM Users
+## Step 21: Tag IAM Users
 
 IAM users were assigned appropriate tags to identify their role and project.
 
@@ -458,7 +458,7 @@ Tags can help organize and identify resources.
 
 ---
 
-## Step 22 — Create the `USMSDeveloperBase` Policy
+## Step 22: Create the `USMSDeveloperBase` Policy
 
 A customer-managed policy called:
 
@@ -499,7 +499,7 @@ aws iam create-policy \
 
 ---
 
-## Step 23 — Attach the Developer Policy
+## Step 23: Attach the Developer Policy
 
 The customer-managed policy was attached to the required groups.
 
@@ -519,7 +519,7 @@ Using a customer-managed policy allows the same policy to be reused by multiple 
 
 ---
 
-## Step 24 — Create Additional IAM Policies
+## Step 24: Create Additional IAM Policies
 
 Additional policies were created for the USMS environment, including:
 
@@ -533,7 +533,7 @@ These policies provide specific permissions required by different users and serv
 
 ---
 
-## Step 25 — Create an Inline Policy
+## Step 25: Create an Inline Policy
 
 An inline policy was configured for:
 
@@ -551,7 +551,7 @@ Inline policies are embedded directly into an IAM identity and are not standalon
 
 ---
 
-## Step 26 — Create IAM Roles
+## Step 26: Create IAM Roles
 
 The following roles were created:
 
@@ -565,7 +565,7 @@ Roles are used for temporary access and are particularly useful for AWS services
 
 ---
 
-## Step 27 — Configure Trust Policies
+## Step 27: Configure Trust Policies
 
 Trust policies were created for the IAM roles.
 
@@ -585,7 +585,7 @@ This distinction is important when designing secure AWS environments.
 
 ---
 
-## Step 28 — Attach Policies to Roles
+## Step 28: Attach Policies to Roles
 
 The required permissions policies were attached to the appropriate roles.
 
@@ -593,7 +593,7 @@ The roles were then inspected to confirm that their permissions and trust relati
 
 ---
 
-## Step 29 — Create EC2 Instance Profile
+## Step 29: Create EC2 Instance Profile
 
 An instance profile was created for the EC2 application role:
 
@@ -618,7 +618,7 @@ Instance profiles allow an EC2 instance to use an IAM role.
 
 ---
 
-## Step 30 — Configure and Verify STS AssumeRole
+## Step 30: Configure and Verify STS AssumeRole
 
 STS was used to demonstrate temporary role credentials.
 
@@ -636,7 +636,7 @@ The lab identifies STS role assumption as one of the IAM mechanisms observable i
 
 ---
 
-## Step 31 — Create Access Keys
+## Step 31: Create Access Keys
 
 An access key was created for:
 
@@ -671,7 +671,7 @@ The lab emphasizes that the secret access key is shown only once and should neve
 
 ---
 
-## Step 32 — Verify IAM Configuration
+## Step 32: Verify IAM Configuration
 
 The complete IAM environment was checked using AWS CLI commands and the verification script.
 
@@ -707,7 +707,7 @@ The lab's final verification script checks the required artifacts and reports wh
 
 ---
 
-## Step 33 — Record and Commit the Work
+## Step 33: Record and Commit the Work
 
 The final status of the repository was checked:
 
@@ -737,7 +737,7 @@ The practical was successfully implemented using AWS CLI commands against the lo
 
 ### 1. System and Docker Verification
 
-![alt text](image-24.png)
+![alt text](../../screenshots/image-24.png)
 
 **Description:**
 The image shows the Linux/WSL environment and Docker/Docker Compose versions used for the practical.
@@ -746,7 +746,7 @@ The image shows the Linux/WSL environment and Docker/Docker Compose versions use
 
 ### 2. Floci Running
 
-![alt text](image-5.png)
+![alt text](../../screenshots/image-5.png)
 
 **Description:**
 The image shows that Floci is running successfully through Docker Compose.
@@ -755,7 +755,7 @@ The image shows that Floci is running successfully through Docker Compose.
 
 ### 3. AWS CLI Identity Verification
 
-![alt text](image-6.png)
+![alt text](../../screenshots/image-6.png)
 
 **Description:**
 The image shows that the AWS CLI is connected to the local Floci environment and uses the expected account.
@@ -764,9 +764,9 @@ The image shows that the AWS CLI is connected to the local Floci environment and
 
 ### 4. Storage Persistence Verification
 
-![alt text](image-3.png)
-![alt text](image-2.png)
-![alt text](image-4.png)
+![alt text](../../screenshots/image-3.png)
+![alt text](../../screenshots/image-2.png)
+![alt text](../../screenshots/image-4.png)
 
 **Description:**
 The image shows that Floci storage is configured correctly and that IAM resources can persist after restarting the environment.
@@ -775,7 +775,7 @@ The image shows that Floci storage is configured correctly and that IAM resource
 
 ### 5. IAM Groups
 
-![alt text](image-7.png)
+![alt text](../../screenshots/image-7.png)
 
 **Description:**
 The images shows the creation and listing of the USMS IAM groups.
@@ -784,8 +784,8 @@ The images shows the creation and listing of the USMS IAM groups.
 
 ### 6. IAM Users
 
-![alt text](image-8.png)
-![alt text](image-9.png)
+![alt text](../../screenshots/image-8.png)
+![alt text](../../screenshots/image-9.png)
 
 **Description:**
 The image shows the USMS IAM users created using the AWS CLI.
@@ -794,8 +794,8 @@ The image shows the USMS IAM users created using the AWS CLI.
 
 ### 7. Group Membership
 
-![alt text](image-10.png)
-![alt text](image-11.png)
+![alt text](../../screenshots/image-10.png)
+![alt text](../../screenshots/image-11.png)
 
 **Description:**
 The image shows that the IAM users were successfully added to their appropriate groups.
@@ -804,9 +804,9 @@ The image shows that the IAM users were successfully added to their appropriate 
 
 ### 8. `USMSDeveloperBase` Policy
 
-![alt text](image-12.png)
-![alt text](image-13.png)
-![alt text](image-14.png)
+![alt text](../../screenshots/image-12.png)
+![alt text](../../screenshots/image-13.png)
+![alt text](../../screenshots/image-14.png)
 
 **Description:**
 The image shows the creation and configuration of the customer-managed `USMSDeveloperBase` policy.
@@ -815,7 +815,7 @@ The image shows the creation and configuration of the customer-managed `USMSDeve
 
 ### 9. Policy Attachments
 
-![alt text](image-15.png)
+![alt text](../../screenshots/image-15.png)
 
 
 **Description:**
@@ -825,7 +825,7 @@ The image shows that the required policies were attached to the appropriate IAM 
 
 ### 10. IAM Roles
 
-![alt text](image-16.png)
+![alt text](../../screenshots/image-16.png)
 
 **Description:**
 The image shows the IAM roles created for the USMS application and services.
@@ -834,7 +834,7 @@ The image shows the IAM roles created for the USMS application and services.
 
 ### 11. Instance Profile
 
-![alt text](image-17.png)
+![alt text](../../screenshots/image-17.png)
 
 **Description:**
 The image shows that the EC2 instance profile was created and associated with the appropriate IAM role.
@@ -843,8 +843,8 @@ The image shows that the EC2 instance profile was created and associated with th
 
 ### 12. STS AssumeRole
 
-![alt text](image-18.png)
-![alt text](image-19.png)
+![alt text](../../screenshots/image-18.png)
+![alt text](../../screenshots/image-19.png)
 
 **Description:**
 The image shows the successful generation of temporary credentials through the STS `AssumeRole` operation.
@@ -853,7 +853,7 @@ The image shows the successful generation of temporary credentials through the S
 
 ### 13. Access Key Metadata
 
-![alt text](image-20.png)
+![alt text](../../screenshots/image-20.png)
 
 **Description:**
 The image shows that an access key was created for `usms-dev-01`. The secret access key should not be visible in the submitted screenshot.
@@ -862,9 +862,9 @@ The image shows that an access key was created for `usms-dev-01`. The secret acc
 
 ### 14. Final Verification
 
-![alt text](image-21.png)
-![alt text](image-22.png)
-![alt text](image-23.png)
+![alt text](../../screenshots/image-21.png)
+![alt text](../../screenshots/image-22.png)
+![alt text](../../screenshots/image-23.png)
 
 **Description:**
 The image shows the final Lab 01 verification output confirming that the required IAM artifacts were created successfully.
@@ -914,19 +914,19 @@ The practical also demonstrated persistence. IAM resources remained available af
 
 ### 1. What did you learn about this AWS service?
 
-I learned that AWS IAM is responsible for controlling authentication and authorization in an AWS environment. I learned how users, groups, policies, and roles work together to provide controlled access to resources. I also learned that policies can explicitly allow or deny actions and that roles can provide temporary credentials.
+I learned that AWS IAM is responsible for controlling authentication and authorization in an AWS environment. I learned how users, groups, policies and roles work together to provide controlled access to resources. I also learned that policies can explicitly allow or deny actions and that roles can provide temporary credentials.
 
 ### 2. What challenges did you encounter?
 
-The main challenges involved configuring the local Floci environment, ensuring that Docker and Docker Compose were working correctly, configuring the AWS CLI to communicate with Floci, and understanding the relationship between users, groups, policies, and roles. Handling access keys also required careful attention because sensitive credentials must not be displayed or committed to Git.
+The main challenges I faced were setting up the local Floci environment and making sure Docker and Docker Compose were working properly. I also had some difficulty configuring the AWS CLI to communicate with Floci. Another challenge was understanding the relationship between IAM users, groups, policies and roles. Also handling access keys also required careful attention because they contain sensitive information and should not be shared or committed to Git.
 
 ### 3. How would you apply this service in a real-world cloud environment?
 
-In a real-world cloud environment, IAM can be used to create separate identities for administrators, developers, testers, auditors, and applications. Permissions can be assigned through groups and roles according to job responsibilities. This helps enforce least privilege and reduces the risk of unauthorized access.
+In a real-world cloud environment, I would use IAM to create different users and roles for administrators, developers, testers, auditors and applications. Permissions can be assigned based on the responsibilities of each user or group. This helps follow the principle of least privilege and reduces the chances of unauthorized access to cloud resources.
 
 ### 4. What additional concepts or features would you like to explore?
 
-The following IAM features would be useful to explore further:
+I would like to explore more IAM features such as:
 
 * Multi-Factor Authentication (MFA)
 * IAM Identity Center
@@ -938,7 +938,7 @@ The following IAM features would be useful to explore further:
 * CloudTrail auditing
 * Service Control Policies (SCPs)
 
-The practical notes that several of these features, including MFA, permission boundaries, SCPs, IAM Access Analyzer, and CloudTrail, are conceptual or require real AWS enforcement beyond what is observable in Floci. 
+Some of these features, such as MFA, permission boundaries, SCPs, IAM Access Analyzer and CloudTrail are mainly conceptual in the Floci environment or require a real AWS environment to fully understand and test their functionality.
 
 ---
 
