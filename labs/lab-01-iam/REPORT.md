@@ -69,9 +69,6 @@ The lab also creates roles for applications and services, including `usms-ec2-ap
 The practical uses a local AWS-compatible environment instead of connecting directly to a real AWS account.
 
 ```text
-                         Student / Cloud Engineer
-                                  |
-                                  |
                               AWS CLI
                                   |
                                   v
