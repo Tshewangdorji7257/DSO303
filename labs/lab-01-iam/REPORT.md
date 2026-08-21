@@ -124,11 +124,11 @@ The IAM architecture contains users, groups, policies, and roles. Policies defin
 
 # 5. Implementation Procedure
 
-## Part A — Environment Setup
+## Part A: Environment Setup
 
-### Step 1 — Identify the System
+### Step 1: Identify the System
 
-The operating system, architecture, shell, and home directory were identified using:
+The operating system, architecture, shell and home directory were identified using:
 
 ```bash
 uname -s -m
@@ -136,11 +136,7 @@ echo "shell = $SHELL"
 echo "home  = $HOME"
 ```
 
-This step ensures that the correct environment is being used before beginning the practical. The lab expects a Linux/WSL environment when using the provided commands. 
-
-**Screenshot:**
-
-> Insert screenshot showing the output of `uname`, `$SHELL`, and `$HOME`.
+This step ensures that the correct environment is being used before beginning the practical. The lab expects a WSL environment when using the provided commands. 
 
 ---
 
@@ -156,9 +152,6 @@ docker compose version
 
 Docker is required because Floci runs as a Docker container, while Docker Compose is used to manage the Floci environment. 
 
-**Screenshot:**
-
-> Insert screenshot showing Docker and Docker Compose versions.
 
 ---
 
@@ -214,10 +207,6 @@ The purpose was to ensure that files such as access keys and environment files w
 
 The lab specifically requires `outputs/` to remain outside Git because it can contain real-looking access key information. 
 
-**Screenshot:**
-
-> Insert screenshot showing `.gitignore` and Git status.
-
 ---
 
 ## Step 6 — Configure Floci
@@ -232,7 +221,7 @@ FLOCI_STORAGE_MODE=hybrid
 
 and a host directory is mounted to provide durable storage.
 
-The lab requires persistence to be proven by creating a resource, restarting Floci, and checking that the resource still exists. 
+The lab requires persistence to be proven by creating a resource, restarting Floci and checking that the resource still exists. 
 
 ---
 
@@ -250,6 +239,8 @@ The service was made available locally on port:
 ```text
 4566
 ```
+
+![alt text](image.png)
 
 ---
 
@@ -279,9 +270,9 @@ The expected Floci account is:
 
 This provides evidence that the AWS CLI is operating against the local Floci environment.
 
-**Screenshot:**
 
-> Insert screenshot showing the Floci account identity.
+![alt text](image-1.png)
+
 
 ---
 
@@ -294,10 +285,6 @@ The storage configuration was checked using:
 ```
 
 The purpose of this step was to verify that the Floci storage configuration was correctly established.
-
-**Screenshot:**
-
-> Insert screenshot showing successful storage verification.
 
 ---
 
@@ -345,13 +332,14 @@ Resource still exists
 
 This proved that the IAM environment was persistent. The lab identifies this persistence test as an important checkpoint before proceeding to Part B. 
 
-**Screenshot:**
+![alt text](image-3.png)
+![alt text](image-2.png)
+![alt text](image-4.png)
 
-> Insert screenshots showing the resource before and after restarting Floci.
 
 ---
 
-## Step 15 — Complete Part A
+## Step 15 — Completed Part A
 
 At the end of Part A, the environment contained:
 
@@ -681,10 +669,6 @@ aws iam list-access-keys \
 
 The lab emphasizes that the secret access key is shown only once and should never be committed to Git or shared. 
 
-**Screenshot:**
-
-> Insert screenshot showing the access-key metadata. Do **not** include the secret access key.
-
 ---
 
 ## Step 32 — Verify IAM Configuration
@@ -751,129 +735,139 @@ The lab requires `.gitignore` to be established before sensitive information can
 
 The practical was successfully implemented using AWS CLI commands against the local Floci environment.
 
-### Screenshot 1 — System and Docker Verification
+### 1. System and Docker Verification
 
-> **Insert Screenshot Here**
+![alt text](image-24.png)
 
 **Description:**
-The screenshot shows the Linux/WSL environment and Docker/Docker Compose versions used for the practical.
+The image shows the Linux/WSL environment and Docker/Docker Compose versions used for the practical.
 
 ---
 
-### Screenshot 2 — Floci Running
+### 2. Floci Running
 
-> **Insert Screenshot Here**
+![alt text](image-5.png)
 
 **Description:**
-The screenshot shows that Floci is running successfully through Docker Compose.
+The image shows that Floci is running successfully through Docker Compose.
 
 ---
 
-### Screenshot 3 — AWS CLI Identity Verification
+### 3. AWS CLI Identity Verification
 
-> **Insert Screenshot Here**
+![alt text](image-6.png)
 
 **Description:**
-The screenshot confirms that the AWS CLI is connected to the local Floci environment and uses the expected account.
+The image shows that the AWS CLI is connected to the local Floci environment and uses the expected account.
 
 ---
 
-### Screenshot 4 — Storage Persistence Verification
+### 4. Storage Persistence Verification
 
-> **Insert Screenshot Here**
+![alt text](image-3.png)
+![alt text](image-2.png)
+![alt text](image-4.png)
 
 **Description:**
-The screenshot demonstrates that Floci storage is configured correctly and that IAM resources can persist after restarting the environment.
+The image shows that Floci storage is configured correctly and that IAM resources can persist after restarting the environment.
 
 ---
 
-### Screenshot 5 — IAM Groups
+### 5. IAM Groups
 
-> **Insert Screenshot Here**
+![alt text](image-7.png)
 
 **Description:**
-The screenshot shows the creation and listing of the USMS IAM groups.
+The images shows the creation and listing of the USMS IAM groups.
 
 ---
 
-### Screenshot 6 — IAM Users
+### 6. IAM Users
 
-> **Insert Screenshot Here**
+![alt text](image-8.png)
+![alt text](image-9.png)
 
 **Description:**
-The screenshot shows the USMS IAM users created using the AWS CLI.
+The image shows the USMS IAM users created using the AWS CLI.
 
 ---
 
-### Screenshot 7 — Group Membership
+### 7. Group Membership
 
-> **Insert Screenshot Here**
+![alt text](image-10.png)
+![alt text](image-11.png)
 
 **Description:**
-The screenshot confirms that the IAM users were successfully added to their appropriate groups.
+The image shows that the IAM users were successfully added to their appropriate groups.
 
 ---
 
-### Screenshot 8 — `USMSDeveloperBase` Policy
+### 8. `USMSDeveloperBase` Policy
 
-> **Insert Screenshot Here**
+![alt text](image-12.png)
+![alt text](image-13.png)
+![alt text](image-14.png)
 
 **Description:**
-The screenshot shows the creation and configuration of the customer-managed `USMSDeveloperBase` policy.
+The image shows the creation and configuration of the customer-managed `USMSDeveloperBase` policy.
 
 ---
 
-### Screenshot 9 — Policy Attachments
+### 9. Policy Attachments
 
-> **Insert Screenshot Here**
+![alt text](image-15.png)
+
 
 **Description:**
-The screenshot confirms that the required policies were attached to the appropriate IAM groups.
+The image shows that the required policies were attached to the appropriate IAM groups.
 
 ---
 
-### Screenshot 10 — IAM Roles
+### 10. IAM Roles
 
-> **Insert Screenshot Here**
+![alt text](image-16.png)
 
 **Description:**
-The screenshot shows the IAM roles created for the USMS application and services.
+The image shows the IAM roles created for the USMS application and services.
 
 ---
 
-### Screenshot 11 — Instance Profile
+### 11. Instance Profile
 
-> **Insert Screenshot Here**
+![alt text](image-17.png)
 
 **Description:**
-The screenshot confirms that the EC2 instance profile was created and associated with the appropriate IAM role.
+The image shows that the EC2 instance profile was created and associated with the appropriate IAM role.
 
 ---
 
-### Screenshot 12 — STS AssumeRole
+### 12. STS AssumeRole
 
-> **Insert Screenshot Here**
+![alt text](image-18.png)
+![alt text](image-19.png)
 
 **Description:**
-The screenshot shows the successful generation of temporary credentials through the STS `AssumeRole` operation.
+The image shows the successful generation of temporary credentials through the STS `AssumeRole` operation.
 
 ---
 
-### Screenshot 13 — Access Key Metadata
+### 13. Access Key Metadata
 
-> **Insert Screenshot Here**
+![alt text](image-20.png)
 
 **Description:**
-The screenshot confirms that an access key was created for `usms-dev-01`. The secret access key should not be visible in the submitted screenshot.
+The image shows that an access key was created for `usms-dev-01`. The secret access key should not be visible in the submitted screenshot.
 
 ---
 
-### Screenshot 14 — Final Verification
+### 14. Final Verification
 
-> **Insert Screenshot Here**
+![alt text](image-21.png)
+![alt text](image-22.png)
+![alt text](image-23.png)
 
 **Description:**
-The screenshot shows the final Lab 01 verification output confirming that the required IAM artifacts were created successfully.
+The image shows the final Lab 01 verification output confirming that the required IAM artifacts were created successfully.
 
 ---
 
@@ -954,150 +948,3 @@ The objectives of the practical were successfully achieved. The local Floci envi
 
 The practical also reinforced important cloud security principles such as **least privilege, centralized permission management, explicit denial, role-based access, and secure credential handling**. Through the USMS scenario, the practical demonstrated how IAM can be used to organize users and applications according to their responsibilities while reducing unnecessary privileges. The skills developed in this laboratory provide a foundation for the following AWS practicals, including the VPC infrastructure that will be built in the next laboratory.
 
----
-
-# 10. Appendix
-
-## 10.1 Project Structure
-
-```text
-aws-floci-course/
-├── labs/
-│   └── lab-01-iam/
-├── policies/
-├── configs/
-├── scripts/
-│   ├── setup/
-│   ├── utilities/
-│   └── cleanup/
-├── templates/
-├── outputs/
-├── screenshots/
-├── notes/
-├── docker-compose.yml
-├── .gitignore
-└── README.md
-```
-
-The lab specifies that `outputs/` may contain sensitive access-key information and therefore must not be committed to Git. 
-
----
-
-## 10.2 IAM Resources Created
-
-| Resource Type    | Resource Name               |
-| ---------------- | --------------------------- |
-| Group            | `usms-admins`               |
-| Group            | `usms-developers`           |
-| Group            | `usms-auditors`             |
-| User             | `usms-admin-01`             |
-| User             | `usms-dev-01`               |
-| User             | `usms-audit-01`             |
-| Policy           | `USMSDeveloperBase`         |
-| Policy           | `USMSStudentDataReadWrite`  |
-| Policy           | `USMSAssumeAppRoles`        |
-| Policy           | `USMSLambdaBasic`           |
-| Inline Policy    | `USMSSelfManageCredentials` |
-| Role             | `usms-ec2-app-role`         |
-| Role             | `usms-lambda-exec-role`     |
-| Role             | `usms-developer-role`       |
-| Instance Profile | `usms-ec2-app-profile`      |
-
-These resources correspond to the IAM foundation specified by the practical. 
-
----
-
-## 10.3 Important AWS CLI Commands
-
-### IAM Users
-
-```bash
-aws iam create-user --user-name <user>
-aws iam list-users
-aws iam get-user --user-name <user>
-```
-
-### IAM Groups
-
-```bash
-aws iam create-group --group-name <group>
-aws iam add-user-to-group \
-  --group-name <group> \
-  --user-name <user>
-
-aws iam get-group --group-name <group>
-```
-
-### Policies
-
-```bash
-aws iam create-policy \
-  --policy-name <policy> \
-  --policy-document file://policy.json
-
-aws iam attach-group-policy \
-  --group-name <group> \
-  --policy-arn <arn>
-```
-
-### Roles
-
-```bash
-aws iam create-role \
-  --role-name <role> \
-  --assume-role-policy-document file://trust.json
-
-aws iam get-role --role-name <role>
-```
-
-### Instance Profiles
-
-```bash
-aws iam create-instance-profile \
-  --instance-profile-name <profile>
-
-aws iam add-role-to-instance-profile \
-  --instance-profile-name <profile> \
-  --role-name <role>
-```
-
-### Access Keys
-
-```bash
-aws iam create-access-key \
-  --user-name <user>
-
-aws iam list-access-keys \
-  --user-name <user>
-```
-
-### STS
-
-```bash
-aws sts assume-role \
-  --role-arn <role-arn> \
-  --role-session-name <session>
-```
-
-The lab provides these IAM CLI operations as the main command reference for users, groups, policies, roles, instance profiles, access keys, and STS. 
-
----
-
-# Submission Checklist
-
-* [x] Aim/Objectives stated
-* [x] Introduction provided
-* [x] Real-world USMS use case described
-* [x] System architecture included
-* [x] Part A environment setup documented
-* [x] Part B IAM implementation documented
-* [ ] CLI screenshots inserted
-* [ ] Floci verification screenshots inserted
-* [x] Analysis and discussion completed
-* [x] Reflection completed
-* [x] Conclusion written
-* [x] Appendix included
-* [ ] Personal/student information added
-* [ ] Final screenshots checked to ensure no secret credentials are visible
-* [ ] Final verification output included
-* [ ] Git status checked before submission
