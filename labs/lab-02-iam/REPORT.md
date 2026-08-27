@@ -1134,21 +1134,21 @@ These issues were resolved by verifying each resource immediately after creation
 
 ## 8. Reflection
 
-### 1. What did you learn about this AWS service?
+### 1. What did you learn?
 
-I learned that Amazon VPC provides the fundamental networking environment for cloud resources. I learned how CIDR blocks are used to define IP address ranges and how a large VPC can be divided into smaller subnets. I also learned that public and private subnets are primarily distinguished by their routing configuration. In addition, I learned how Internet Gateways, NAT Gateways, route tables, Security Groups, Network ACLs, and VPC endpoints work together to create a secure cloud network.
+I learned that Amazon VPC provides a private network for AWS resources. I learned how CIDR blocks, subnets, route tables, Internet Gateways, NAT Gateways, Security Groups, Network ACLs and VPC endpoints work together to create a secure network.
 
 ### 2. What challenges did you encounter?
 
-The main challenges involved understanding CIDR notation, correctly configuring route tables, and distinguishing between Security Groups and Network ACLs. Another challenge was ensuring that the private subnet did not have a direct route to the Internet Gateway. Working with CLI variables and resource IDs also required careful attention because later commands depended on identifiers created in earlier steps.
+The main challenges were understanding CIDR notation, configuring route tables and understanding the difference between Security Groups and Network ACLs. Managing CLI variables and resource IDs was also challenging.
 
-### 3. How would you apply this service in a real-world cloud environment?
+### 3. How would you apply this in a real-world environment?
 
-In a real-world environment, I would use VPC to design secure and highly available application architectures. For example, public subnets could contain load balancers or web servers, while private subnets could contain application servers and databases. NAT Gateways could provide controlled outbound connectivity for private resources, while Security Groups could restrict communication between application tiers. VPC endpoints could also be used to access AWS services without unnecessarily routing traffic through the Internet.
+I would use VPC to create a secure network for an application. Public subnets could be used for web servers, while private subnets could be used for application servers and databases. Security Groups and Network ACLs could control access, while NAT Gateways could provide Internet access to private resources.
 
-### 4. What additional concepts or features would you like to explore?
+### 4. What additional concepts would you like to explore?
 
-I would like to explore additional VPC features such as VPC peering, Transit Gateway, VPN connections, AWS Direct Connect, Network Firewall, VPC Flow Logs, interface VPC endpoints, and more advanced multi-region network architectures. I would also like to explore how the same architecture can be deployed automatically using Infrastructure as Code tools such as Terraform or AWS CloudFormation.
+I would like to learn more about VPC peering, Transit Gateway, VPN, VPC Flow Logs, Network Firewall, and VPC endpoints. I would also like to learn how to create VPC networks automatically using Terraform or CloudFormation.
 
 ---
 
