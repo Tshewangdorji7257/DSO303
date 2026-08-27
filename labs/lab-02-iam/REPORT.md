@@ -1033,13 +1033,7 @@ Where the AWS Management Console is available, screenshots should be included to
 
 ![alt text](../../screenshots/lab2/image-40.png)
 
-Show:
-
-* VPC name: `usms-vpc`
-* CIDR: `10.0.0.0/16`
-* State: Available
-
-**Explanation:** This screenshot verifies that the USMS VPC was created with the required CIDR block.
+**Explanation:** This images shows that the USMS VPC was created with the required CIDR block.
 
 ---
 
@@ -1048,16 +1042,7 @@ Show:
 ![alt text](../../screenshots/lab2/image-41.png)
 ![alt text](../../screenshots/lab2/image-44.png)
 
-Show:
-
-* Public subnet A
-* Public subnet B
-* Private subnet A
-* Private subnet B
-* Availability Zones
-* CIDR blocks
-
-**Explanation:** This confirms that the network has been divided into public and private subnets across two Availability Zones.
+**Explanation:** This image shows that the network has been divided into public and private subnets across two Availability Zones.
 
 ---
 
@@ -1066,14 +1051,7 @@ Show:
 ![alt text](../../screenshots/lab2/image-42.png)
 ![alt text](../../screenshots/lab2/image-43.png)
 
-Show:
-
-* `usms-public-rt`
-* `usms-private-rt`
-* Internet Gateway route
-* NAT Gateway route
-
-**Explanation:** This verifies the routing difference between the public and private network tiers.
+**Explanation:** This image shows the routing difference between the public and private network tiers.
 
 ---
 
@@ -1081,13 +1059,8 @@ Show:
 
 ![alt text](<../../screenshots/lab2/Screenshot 2026-08-17 060230.png>)
 
-Show:
 
-* `usms-app-sg`
-* `usms-db-sg`
-* Inbound rules
-
-**Explanation:** This verifies that application and database traffic is controlled using separate Security Groups.
+**Explanation:** This image shows that application and database traffic is controlled using separate Security Groups.
 
 ---
 
