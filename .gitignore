@@ -4,7 +4,6 @@
 
 # Command output and secrets
 outputs/*
-!outputs/.gitkeep
 
 # Generated Compose configuration
 .env
