@@ -128,7 +128,7 @@ The planned address ranges are:
 
 Each `/24` subnet contains 256 addresses, of which 251 are usable according to the lab's AWS addressing model.
 
-![alt text](image-39.png)
+![alt text](../../screenshots/lab2/image-39.png)
 
 *Figure 1: Architecture of the USMS VPC network.*
 
@@ -150,7 +150,7 @@ cd ~/aws-floci-course
 
 The storage verification checks that the Floci container is running, that hybrid storage is being used, and that the persistent host directory is correctly mounted. The expected result is `PASS=6 FAIL=0`. 
 
-![alt text](image.png)
+![alt text](../../screenshots/lab2/image.png)
 
 *Figure 1: Floci environment successfully started and persistent storage verified.*
 
@@ -173,7 +173,7 @@ echo "account        : $USMS_ACCOUNT_ID"
 
 The identity verification confirmed that the AWS CLI was communicating with the local Floci environment using account `000000000000` and endpoint `http://localhost:4566`. 
 
-![alt text](image-1.png)
+![alt text](../../screenshots/lab2/image-1.png)
 
 *Figure 2: Previous lab environment variables loaded and Floci identity confirmed.*
 
@@ -229,7 +229,7 @@ aws iam get-policy-version \
 
 The expected default policy version was `v2`. The policy was checked for the required VPC-related EC2 permissions and its region restriction. 
 
-![alt text](image-2.png)
+![alt text](../../screenshots/lab2/image-2.png)
 
 *Figure 3: `USMSDeveloperBase` policy version and permissions verified.*
 
@@ -257,7 +257,7 @@ aws sts get-caller-identity --no-cli-pager
 
 The returned ARN confirmed that the current identity was the assumed `usms-developer-role`. 
 
-![alt text](image-4.png)
+![alt text](../../screenshots/lab2/image-4.png)
 
 *Figure 4: Successful assumption of the `usms-developer-role`.*
 
@@ -279,7 +279,7 @@ echo "VPC_ID = $VPC_ID"
 
 The generated VPC ID was stored in the `VPC_ID` variable. 
 
-![alt text](image-5.png)
+![alt text](../../screenshots/lab2/image-5.png)
 
 *Figure 5: `usms-vpc` created with the `10.0.0.0/16` CIDR block.*
 
@@ -302,7 +302,7 @@ aws ec2 describe-vpcs \
 
 The VPC was successfully verified using the normal identity. The expected state was `available`, with `10.0.0.0/16` as its CIDR and `Default=False`. 
 
-![alt text](image-6.png)
+![alt text](../../screenshots/lab2/image-6.png)
 
 *Figure 6: VPC successfully verified after restoring the normal identity.*
 
@@ -340,7 +340,7 @@ aws ec2 describe-vpc-attribute \
 
 Both attributes were expected to return `True`. 
 
-![alt text](image-7.png)
+![alt text](../../screenshots/lab2/image-7.png)
 
 *Figure 7: DNS support and DNS hostnames successfully enabled.*
 
@@ -365,8 +365,8 @@ aws ec2 attach-internet-gateway \
 
 The attachment was then verified using `describe-internet-gateways`. 
 
-![alt text](image-8.png)
-![alt text](image-9.png)
+![alt text](../../screenshots/lab2/image-8.png)
+![alt text](../../screenshots/lab2/image-9.png)
 
 *Figure 8: `usms-igw` created and attached to `usms-vpc`.*
 
@@ -390,7 +390,7 @@ echo "PUBLIC_SUBNET_A_ID = $PUBLIC_SUBNET_A_ID"
 
 The subnet was verified to ensure that it was available and had the expected CIDR and Availability Zone. At this stage, automatic public IP assignment was still `False`. 
 
-![alt text](image-10.png)
+![alt text](../../screenshots/lab2/image-10.png)
 
 *Figure 9: Public subnet A created in `us-east-1a`.*
 
@@ -419,7 +419,7 @@ True
 
 This allows instances launched in the subnet to automatically receive public IPv4 addresses. 
 
-![alt text](image-11.png)
+![alt text](../../screenshots/lab2/image-11.png)
 
 *Figure 10: Automatic public IPv4 assignment enabled for the public subnet.*
 
@@ -445,7 +445,7 @@ Automatic public IP assignment was deliberately not enabled for this subnet.
 
 The subnets were then listed using `--filters` and `--query` to confirm their configuration. 
 
-![alt text](image-12.png)
+![alt text](../../screenshots/lab2/image-12.png)
 
 *Figure 11: Private subnet A created and subnet configuration verified.*
 
@@ -472,7 +472,7 @@ aws ec2 create-route \
 
 The default route `0.0.0.0/0` was configured to point to the Internet Gateway. 
 
-![alt text](image-13.png)
+![alt text](../../screenshots/lab2/image-13.png)
 
 *Figure 12: Public route table with the default route pointing to the Internet Gateway.*
 
@@ -502,7 +502,7 @@ AZ:   us-east-1b
 
 It should have automatic public IPv4 assignment enabled and be associated with `usms-public-rt`. 
 
-![alt text](image-14.png)
+![alt text](../../screenshots/lab2/image-14.png)
 
 *Figure 13: Public subnets associated with the public route table across two Availability Zones.*
 
@@ -532,8 +532,8 @@ echo "PRIVATE_ASSOC_A_ID = $PRIVATE_ASSOC_A_ID"
 
 At this point, the private route table intentionally had no Internet Gateway default route. 
 
-![alt text](image-15.png)
-![alt text](image-16.png)
+![alt text](../../screenshots/lab2/image-15.png)
+![alt text](../../screenshots/lab2/image-16.png)
 
 *Figure 14: Private subnet associated with the private route table.*
 
@@ -563,7 +563,7 @@ done
 
 The public subnet was expected to have an Internet Gateway as its default route target, while the private subnet had no default route at this stage. 
 
-![alt text](image-17.png)
+![alt text](../../screenshots/lab2/image-17.png)
 
 *Figure 15: Effective route tables demonstrating the difference between public and private subnets.*
 
@@ -599,7 +599,7 @@ aws ec2 authorize-security-group-ingress \
 
 The lab's **Your turn** exercise also requires HTTPS on TCP port 443 from `0.0.0.0/0`. 
 
-![alt text](image-18.png)
+![alt text](../../screenshots/lab2/image-18.png)
 
 *Figure 16: `usms-app-sg` configured for HTTP, HTTPS and internal SSH access.*
 
@@ -637,8 +637,8 @@ aws ec2 authorize-security-group-ingress \
 
 The database security group was verified to ensure that the source was `usms-app-sg` rather than a CIDR address. 
 
-![alt text](image-19.png)
-![alt text](image-20.png)
+![alt text](../../screenshots/lab2/image-19.png)
+![alt text](../../screenshots/lab2/image-20.png)
 
 *Figure 17: Database security group allowing PostgreSQL traffic from the application security group.*
 
@@ -659,7 +659,7 @@ The output confirmed the application and database security groups and the automa
 
 Security Groups are **stateful**, meaning return traffic for an established connection is automatically allowed. The application server can therefore receive HTTP traffic and send the response without requiring a separate outbound rule for that response. 
 
-![alt text](image-21.png)
+![alt text](../../screenshots/lab2/image-21.png)
 
 *Figure 18: Security groups and their inbound/outbound rule counts verified.*
 
@@ -692,8 +692,8 @@ Rules were configured for PostgreSQL, return traffic, application replies, and H
 
 The NACL is **stateless**, unlike a Security Group, so return traffic must be explicitly permitted. 
 
-![alt text](image-22.png)
-![alt text](image-23.png)
+![alt text](../../screenshots/lab2/image-22.png)
+![alt text](../../screenshots/lab2/image-23.png)
 
 *Figure 19: Custom private NACL and its inbound/outbound rules.*
 
@@ -720,7 +720,7 @@ aws ec2 replace-network-acl-association \
 
 The association was verified using `describe-network-acls`. The expected result was `Default=False` and the name `usms-private-nacl`. 
 
-![alt text](image-24.png)
+![alt text](../../screenshots/lab2/image-24.png)
 
 
 *Figure 20: Custom private NACL associated with the private subnet.*
@@ -756,9 +756,9 @@ echo "NAT_GW_ID = $NAT_GW_ID"
 
 The NAT Gateway was then waited on until it became available. 
 
-![alt text](image-25.png)
-![alt text](image-26.png)
-![alt text](image-27.png)
+![alt text](../../screenshots/lab2/image-25.png)
+![alt text](../../screenshots/lab2/image-26.png)
+![alt text](../../screenshots/lab2/image-27.png)
 
 *Figure 21: NAT Gateway created in the public subnet with an Elastic IP.*
 
@@ -789,7 +789,7 @@ The private route table was expected to contain:
 
 The private route table must **not** point its default route to the Internet Gateway. 
 
-![alt text](image-28.png)
+![alt text](../../screenshots/lab2/image-28.png)
 
 *Figure 22: Private route table configured to use the NAT Gateway.*
 
@@ -816,7 +816,7 @@ The endpoint was verified using `describe-vpc-endpoints` and the private route t
 
 The lab notes that some Floci builds may create the endpoint successfully without displaying the prefix-list route in the route table, even though real AWS adds the route. 
 
-![alt text](image-29.png)
+![alt text](../../screenshots/lab2/image-29.png)
 
 *Figure 23: S3 gateway endpoint created and associated with the private route table.*
 
@@ -845,7 +845,7 @@ outputs/lab-02-subnet-inventory.txt
 
 
 
-![alt text](image-30.png)
+![alt text](../../screenshots/lab2/image-30.png)
 
 *Figure 24: USMS resources verified using the `Project=USMS` tag.*
 
@@ -898,9 +898,9 @@ The expected result was:
 ```text
 PERSISTENCE PROVEN: VPC id, subnet count and security group count all unchanged
 ```
-![alt text](image-31.png)
-![alt text](image-32.png)
-![alt text](image-33.png)
+![alt text](../../screenshots/lab2/image-31.png)
+![alt text](../../screenshots/lab2/image-32.png)
+![alt text](../../screenshots/lab2/image-33.png)
 
 *Figure 25: VPC network successfully preserved after restarting Floci.*
 
@@ -939,8 +939,8 @@ source configs/lab-02.env
 echo "vpc=$USMS_VPC_ID  public-a=$USMS_PUBLIC_SUBNET_A  app-sg=$USMS_APP_SG"
 ```
 
-![alt text](image-35.png)
-![alt text](image-36.png)
+![alt text](../../screenshots/lab2/image-35.png)
+![alt text](../../screenshots/lab2/image-36.png)
 
 *Figure 26: Resource identifiers stored in `configs/lab-02.env` and successfully loaded.*
 
@@ -975,7 +975,7 @@ git log --oneline -3
 
 Explicitly specifying the files prevents accidentally committing files containing credentials or other sensitive data. 
 
-![alt text](image-34.png)
+![alt text](../../screenshots/lab2/image-34.png)
 
 *Figure 27: Lab 02 files successfully committed to the Git repository.*
 
@@ -996,7 +996,7 @@ The expected final result is:
 ```text
 PASS=33 FAIL=0
 ```
-![alt text](image-37.png)
+![alt text](../../screenshots/lab2/image-37.png)
 
 *Figure 28: Final Lab 02 verification showing `PASS=33 FAIL=0`.*
 
@@ -1031,7 +1031,7 @@ Where the AWS Management Console is available, screenshots should be included to
 
 ### Console/Evidence – VPC
 
-![alt text](image-40.png)
+![alt text](../../screenshots/lab2/image-40.png)
 
 Show:
 
@@ -1045,8 +1045,8 @@ Show:
 
 ### Console/Evidence – Subnets
 
-![alt text](image-41.png)
-![alt text](image-44.png)
+![alt text](../../screenshots/lab2/image-41.png)
+![alt text](../../screenshots/lab2/image-44.png)
 
 Show:
 
@@ -1063,8 +1063,8 @@ Show:
 
 ### Console/Evidence – Route Tables
 
-![alt text](image-42.png)
-![alt text](image-43.png)
+![alt text](../../screenshots/lab2/image-42.png)
+![alt text](../../screenshots/lab2/image-43.png)
 
 Show:
 
@@ -1079,7 +1079,7 @@ Show:
 
 ### Console/Evidence – Security Groups
 
-![alt text](<Screenshot 2026-08-17 060230.png>)
+![alt text](<../../screenshots/lab2/Screenshot 2026-08-17 060230.png>)
 
 Show:
 
@@ -1093,13 +1093,13 @@ Show:
 
 ## Console/Evidence – Private EC2 Instance
 
-![alt text](<Screenshot 2026-08-17 060230-1.png>)
+![alt text](<../../screenshots/lab2/Screenshot 2026-08-17 060230-1.png>)
 
 **Explanation:** The iamge shows the running EC2 instance with private IPv4 address 10.0.2.246 and VPC ID vpc-0b7446b00ed75437a. This confirms that the application instance is deployed within the configured VPC.
 
 ## Console/Evidence – Application Access from EC2
 
-![alt text](<Screenshot 2026-08-17 060241.png>)
+![alt text](<../../screenshots/lab2/Screenshot 2026-08-17 060241.png>)
 
 **Explanation:** The image shows the web application running successfully on the EC2 instance. The displayed instance ID and Availability Zone provide evidence that the deployed application is operational within the AWS environment.
 
