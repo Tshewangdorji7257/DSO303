@@ -1073,6 +1073,7 @@ Where the AWS Management Console is available, screenshots should be included to
 ## Console/Evidence – Application Access from EC2
 
 ![alt text](<../../screenshots/lab2/Screenshot 2026-08-17 060241.png>)
+![alt text](<../../screenshots/lab2/Screenshot 2026-08-17 055754.png>)
 
 **Explanation:** The image shows the web application running successfully on the EC2 instance. The displayed instance ID and Availability Zone provide evidence that the deployed application is operational within the AWS environment.
 
