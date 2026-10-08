@@ -1,0 +1,1 @@
+- Step 8: Floci accepted the port 80 source security-group rule, but describe-security-groups returns an empty UserIdGroupPairs list; treated as a Floci security-group introspection limitation.

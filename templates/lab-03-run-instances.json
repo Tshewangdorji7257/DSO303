@@ -1,0 +1,51 @@
+{
+  "ImageId": "ami-0abcdef1234567890",
+  "InstanceType": "t3.micro",
+  "MinCount": 1,
+  "MaxCount": 1,
+  "KeyName": "usms-app-key",
+  "SubnetId": "subnet-146b32ea",
+  "SecurityGroupIds": [
+    "sg-cc981a41b765aebf5"
+  ],
+    "IamInstanceProfile": {
+    "Name": "usms-ec2-app-profile"
+  },
+  "UserData": "IyEvYmluL2Jhc2gKCmRuZiB1cGRhdGUgLXkKZG5mIGluc3RhbGwgLXkgbmdpbngKCnN5c3RlbWN0bCBlbmFibGUgbmdpbngKc3lzdGVtY3RsIHN0YXJ0IG5naW54CgpjYXQgPiAvdXNyL3NoYXJlL25naW54L2h0bWwvaW5kZXguaHRtbCA8PCdIVE1MJwo8IURPQ1RZUEUgaHRtbD4KPGh0bWw+CjxoZWFkPgogICAgPHRpdGxlPlVTTVMgV2ViIFNlcnZlcjwvdGl0bGU+CjwvaGVhZD4KPGJvZHk+CiAgICA8aDE+VVNNUyBXZWIgU2VydmVyPC9oMT4KICAgIDxwPkVDMiBpbnN0YW5jZSBpcyBydW5uaW5nIHN1Y2Nlc3NmdWxseS48L3A+CjwvYm9keT4KPC9odG1sPgpIVE1MCgpta2RpciAtcCAvdXNyL3NoYXJlL25naW54L2h0bWwvaGVhbHRoCgpjYXQgPiAvdXNyL3NoYXJlL25naW54L2h0bWwvaGVhbHRoL2hlYWx0aC5qc29uIDw8J0pTT04nCnsKICAic3RhdHVzIjogImhlYWx0aHkiLAogICJzZXJ2aWNlIjogInVzbXMtd2ViIiwKICAibGFiIjogIjAzIgp9CkpTT04K",
+  "TagSpecifications": [
+    {
+      "ResourceType": "instance",
+      "Tags": [
+        {
+          "Key": "Name",
+          "Value": "usms-web-01"
+        },
+        {
+          "Key": "Project",
+          "Value": "USMS"
+        },
+        {
+          "Key": "Tier",
+          "Value": "web"
+        },
+        {
+          "Key": "Lab",
+          "Value": "03"
+        }
+      ]
+    },
+    {
+      "ResourceType": "volume",
+      "Tags": [
+        {
+          "Key": "Name",
+          "Value": "usms-web-01-root"
+        },
+        {
+          "Key": "Project",
+          "Value": "USMS"
+        }
+      ]
+    }
+  ]
+}
