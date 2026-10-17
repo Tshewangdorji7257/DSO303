@@ -1,0 +1,1 @@
+Lab 05: update-service returned success, but describe-services reports LoadBalancers=null and GracePeriod=null; describe-target-health returns []. Investigate Floci ECS integration before any destructive fallback.

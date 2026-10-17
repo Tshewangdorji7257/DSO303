@@ -1,0 +1,47 @@
+{
+    "services": [
+        {
+            "serviceArn": "arn:aws:ecs:us-east-1:000000000000:service/usms-ecs-cluster/usms-enrolment-svc",
+            "serviceName": "usms-enrolment-svc",
+            "clusterArn": "arn:aws:ecs:us-east-1:000000000000:cluster/usms-ecs-cluster",
+            "status": "ACTIVE",
+            "desiredCount": 2,
+            "runningCount": 2,
+            "pendingCount": 0,
+            "launchType": "FARGATE",
+            "taskDefinition": "usms-enrolment",
+            "createdAt": "2026-10-08T23:17:11.440000+06:00",
+            "networkConfiguration": {
+                "awsvpcConfiguration": {
+                    "subnets": [
+                        "subnet-c416fe9f",
+                        "subnet-67a222dd"
+                    ],
+                    "securityGroups": [
+                        "sg-17cfdc689a34ca58b"
+                    ],
+                    "assignPublicIp": "DISABLED"
+                }
+            },
+            "tags": [
+                {
+                    "key": "Project",
+                    "value": "USMS"
+                },
+                {
+                    "key": "Tier",
+                    "value": "app"
+                },
+                {
+                    "key": "Lab",
+                    "value": "04"
+                },
+                {
+                    "key": "Name",
+                    "value": "usms-enrolment-svc"
+                }
+            ]
+        }
+    ],
+    "failures": []
+}

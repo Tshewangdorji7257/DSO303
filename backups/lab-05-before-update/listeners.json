@@ -1,0 +1,19 @@
+{
+    "Listeners": [
+        {
+            "ListenerArn": "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/usms-enrolment-alb/9799cbb555ad438f/3c2bea0451e64c1a",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/usms-enrolment-alb/9799cbb555ad438f",
+            "Port": 80,
+            "Protocol": "HTTP",
+            "Certificates": [],
+            "SslPolicy": "",
+            "DefaultActions": [
+                {
+                    "Type": "forward",
+                    "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/usms-enrolment-tg/109124adae3d4860"
+                }
+            ],
+            "AlpnPolicy": []
+        }
+    ]
+}

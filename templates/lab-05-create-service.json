@@ -1,0 +1,31 @@
+{
+  "cluster": "usms-ecs-cluster",
+  "serviceName": "usms-enrolment-svc",
+  "taskDefinition": "usms-enrolment:2",
+  "desiredCount": 2,
+  "launchType": "FARGATE",
+  "deploymentController": {
+    "type": "ECS"
+  },
+  "loadBalancers": [
+    {
+      "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/usms-enrolment-tg/109124adae3d4860",
+      "containerName": "enrolment-api",
+      "containerPort": 80
+    }
+  ],
+  "healthCheckGracePeriodSeconds": 60,
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": [
+        "subnet-c416fe9f",
+        "subnet-67a222dd"
+      ],
+      "securityGroups": [
+        "sg-17cfdc689a34ca58b"
+      ],
+      "assignPublicIp": "DISABLED"
+    }
+  },
+  "schedulingStrategy": "REPLICA"
+}

@@ -1,0 +1,6 @@
+{
+    "taskArns": [
+        "arn:aws:ecs:us-east-1:000000000000:task/usms-ecs-cluster/f02f42c098324ec8ad9852373b97197d",
+        "arn:aws:ecs:us-east-1:000000000000:task/usms-ecs-cluster/18baf2078f3d4eeb9a1a739acc6dceed"
+    ]
+}

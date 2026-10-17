@@ -1,0 +1,31 @@
+{
+    "LoadBalancers": [
+        {
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/usms-enrolment-alb/9799cbb555ad438f",
+            "DNSName": "usms-enrolment-alb-9799cbb555ad438f.elb.floci",
+            "CanonicalHostedZoneId": "Z35SXDOTRQ7X7K",
+            "CreatedTime": "2026-10-17T08:05:20.761000+00:00",
+            "LoadBalancerName": "usms-enrolment-alb",
+            "Scheme": "internet-facing",
+            "VpcId": "vpc-b2d5d1d1",
+            "State": {
+                "Code": "active"
+            },
+            "Type": "application",
+            "AvailabilityZones": [
+                {
+                    "ZoneName": "a",
+                    "SubnetId": "subnet-146b32ea"
+                },
+                {
+                    "ZoneName": "us-east-1c",
+                    "SubnetId": "subnet-fbee693e"
+                }
+            ],
+            "SecurityGroups": [
+                "sg-169971968fbc4b762"
+            ],
+            "IpAddressType": "ipv4"
+        }
+    ]
+}

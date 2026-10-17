@@ -1,0 +1,28 @@
+{
+    "TargetGroups": [
+        {
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/usms-enrolment-tg/109124adae3d4860",
+            "TargetGroupName": "usms-enrolment-tg",
+            "Protocol": "HTTP",
+            "Port": 80,
+            "VpcId": "vpc-b2d5d1d1",
+            "HealthCheckProtocol": "HTTP",
+            "HealthCheckPort": "traffic-port",
+            "HealthCheckEnabled": true,
+            "HealthCheckIntervalSeconds": 30,
+            "HealthCheckTimeoutSeconds": 5,
+            "HealthyThresholdCount": 2,
+            "UnhealthyThresholdCount": 2,
+            "HealthCheckPath": "C:/Program Files/Git/",
+            "Matcher": {
+                "HttpCode": "200"
+            },
+            "LoadBalancerArns": [
+                "arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/usms-enrolment-alb/9799cbb555ad438f"
+            ],
+            "TargetType": "ip",
+            "ProtocolVersion": "HTTP1",
+            "IpAddressType": "ipv4"
+        }
+    ]
+}
