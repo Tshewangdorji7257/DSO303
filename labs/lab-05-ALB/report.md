@@ -5,10 +5,12 @@
 1. [Aim](#1-aim)
 2. [Objectives](#2-objectives)
 3. [Environment and Resources](#3-environment-and-resources)
-4. [Procedure and Evidence](#4-procedure-and-evidence)
-5. [Results Summary](#5-results-summary)
-6. [Issues Requiring Follow-up](#6-issues-requiring-follow-up)
-7. [Conclusion](#7-conclusion)
+4. [Architecture](#4-architecture)
+5. [Procedure and Evidence](#5-procedure-and-evidence)
+6. [Results Summary](#6-results-summary)
+7. [Issues Requiring Follow-up](#7-issues-requiring-follow-up)
+8. [Reflection](#8-reflection)
+9. [Conclusion](#9-conclusion)
 
 ---
 
@@ -75,9 +77,88 @@ arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/usms-enrolment-
 
 ---
 
-## 4. Procedure and Evidence
+## 4. Architecture
 
-> **Evidence note:** All screenshots are referenced from `../../screenshots/lab5/`. Make sure the image files are stored in that folder (relative to this report), or update the links to match your evidence folder.
+### 4.1 Overview
+
+Before this lab, the Enrolment API tasks were reached directly through a security-group rule. In this lab, an internet-facing Application Load Balancer became the single entry point. The ALB sits in two public subnets across two Availability Zones, while the ECS tasks stay in private subnets without public IP addresses. The ALB forwards requests to the tasks through an IP-type target group, which matches the `awsvpc` network mode used by the ECS service.
+
+### 4.2 Architecture diagram
+
+![alt text](<aws-architecture-diagram (1).png>)
+
+```mermaid
+flowchart TB
+    client([Client / Internet])
+
+    subgraph vpc["VPC (Labs 02-04 network)"]
+        subgraph pub["Public subnets (two Availability Zones)"]
+            alb["Application Load Balancer<br/>usms-enrolment-alb<br/>SG: usms-alb-sg"]
+        end
+
+        subgraph listener["Listener: HTTP :80"]
+            rule["Rule, priority 10<br/>/alb-health, /alb-health/*<br/>Fixed response 200"]
+            default["Default action<br/>Forward"]
+        end
+
+        tg["Target group<br/>usms-enrolment-tg<br/>type: ip"]
+
+        subgraph priv["Private subnets"]
+            subgraph ecs["ECS cluster: usms-ecs-cluster"]
+                svc["Service: usms-enrolment-svc<br/>2 tasks, awsvpc<br/>SG: usms-enrolment-sg"]
+                t1["Task 172.21.0.3<br/>enrolment-api :80"]
+                t2["Task 172.21.0.5<br/>enrolment-api :80"]
+            end
+        end
+    end
+
+    client -->|"HTTP 80 / HTTPS 443 allowed"| alb
+    alb --> rule
+    alb --> default
+    default --> tg
+    tg --> t1
+    tg --> t2
+    svc -.manages.-> t1
+    svc -.manages.-> t2
+```
+
+
+### 4.3 Components and their roles
+
+| Component | Role in the design |
+|---|---|
+| Application Load Balancer (`usms-enrolment-alb`) | Internet-facing entry point, deployed across two public subnets for availability. |
+| ALB security group (`usms-alb-sg`) | Allows inbound TCP 80 from `0.0.0.0/0` (and the HTTPS practice rule on 443). |
+| HTTP listener (port 80) | Receives requests and applies routing rules; the default action forwards to the target group. |
+| Listener rule (priority 10) | Returns a fixed `200 text/plain` response (`usms-enrolment-alb ok`) for `/alb-health` and `/alb-health/*`, without involving the tasks. |
+| Target group (`usms-enrolment-tg`) | Holds the registered task IP addresses, tracks target health, and applies a 30-second deregistration delay. |
+| ECS service (`usms-enrolment-svc`) | Keeps two `enrolment-api` tasks running and registers each task's IP with the target group. |
+| Task security group (`usms-enrolment-sg`) | Intended to allow TCP 80 only from `usms-alb-sg`, not from every source. |
+
+### 4.4 Request flow
+
+1. A client sends an HTTP request to the ALB DNS name.
+2. `usms-alb-sg` permits the traffic on port 80.
+3. The listener evaluates the rules in priority order. Requests to `/alb-health` match the priority 10 rule and receive the fixed response.
+4. All other requests use the default action and are forwarded to `usms-enrolment-tg`.
+5. The target group selects a healthy target (`172.21.0.3` or `172.21.0.5`) and sends the request to the `enrolment-api` container on port 80.
+6. `usms-enrolment-sg` accepts the connection only because its source is the ALB security group.
+
+### 4.5 Design decisions
+
+- **IP target type:** ECS tasks using `awsvpc` mode receive their own network interface and IP address, so targets are registered by IP rather than by instance.
+- **Security-group referencing:** The task security group references `usms-alb-sg` as its source instead of a CIDR range, so the tasks can be reached through the load balancer but not directly.
+- **Removal of the direct path:** The earlier direct-access rule was removed so the ALB is the only intended route to the service.
+- **Two Availability Zones:** Placing the ALB in two public subnets is the minimum for a highly available load balancer.
+- **Deregistration delay of 30 seconds:** A shorter delay than the default lets draining targets be released more quickly during deployments.
+
+### 4.6 Environment limitation
+
+Floci emulates the AWS control plane (ELBv2, ECS, EC2 APIs), but the data plane did not return an HTTP response for requests to the ALB DNS name. The architecture above is therefore evidenced through API output, not through a live end-to-end request.
+
+---
+
+## 5. Procedure and Evidence
 
 ### Step 1 — Start Floci and load the previous labs
 
@@ -399,15 +480,13 @@ The utility script `scripts/utilities/verify-lab-05.sh` was created and run. The
 
 **Passed checks:** running Floci container, non-memory storage, AWS CLI reachability, account ID, prior-lab dependencies, ALB existence and state, target group properties, listener existence and routing, service wiring, private-subnet placement, no public IP assignment, JSON validity, and Git secret hygiene.
 
-> **Note:** A separate security-group inspection visibly showed that `usms-alb-sg` has a TCP port 80 ingress rule from `0.0.0.0/0`. The verifier's failure for that specific check should therefore be investigated rather than assumed to mean the rule is absent. The captured output was truncated while displaying the following rule, so the complete set of ALB security-group rules should be rechecked with a compact query. The other security-group and service failures also require follow-up before the lab can be considered fully verified.
-
 **Evidence**
 
 ![Build and run Lab 05 verification script](../../screenshots/lab5/image-68.png)
 
 ---
 
-## 5. Results Summary
+## 6. Results Summary
 
 | Area | Result |
 |---|---|
@@ -424,7 +503,7 @@ The utility script `scripts/utilities/verify-lab-05.sh` was created and run. The
 
 ---
 
-## 6. Issues Requiring Follow-up
+## 7. Issues Requiring Follow-up
 
 The practical produced the required core ALB, target group, listener, and ECS service resources, but the final verification script did not pass completely. Before reporting the lab as fully complete, address the following:
 
@@ -438,7 +517,48 @@ The practical produced the required core ALB, target group, listener, and ECS se
 
 ---
 
-## 7. Conclusion
+## 8. Reflection
+
+### 8.1 What I learned
+
+This lab showed how several separate pieces have to line up before a load balancer can serve an ECS service: the ALB and its security group, the listener, the target group, the task security group, and the ECS service's load-balancer configuration. Each piece was created and checked on its own, but the design only works when all of them agree. For example, the target type had to be `ip` because the service uses `awsvpc` networking, and the task security group had to trust the ALB security group rather than a CIDR range.
+
+I also learned that a security group can be used as a source in a rule. Referencing `usms-alb-sg` is more precise than opening port 80 to the whole internet, because it ties access to the load balancer itself and still works if the ALB's addresses change.
+
+### 8.2 What went well
+
+- The control-plane resources (ALB, target group, listener, fixed-response rule, and service attachment) were all created and could be inspected through the API.
+- Deriving ARNs from API output after the restart, rather than copying them by hand, made the persistence check more reliable.
+- The restart check showed that the configuration survived a Floci stop and start in hybrid storage mode.
+- Writing a verification script made the lab measurable. It confirmed 43 checks and highlighted exactly where the setup was incomplete.
+
+### 8.3 Challenges and limitations
+
+- **No live HTTP response:** Requests to the ALB DNS name returned status `000`. Floci did not provide a working data plane for the load balancer, so I could not show a real request travelling from client to task. I treated this as an environment limitation and relied on control-plane evidence instead of claiming success.
+- **Draining not observed:** Forcing a deployment left the service stable at two tasks, and no draining state appeared in my captured checks. The 30-second deregistration delay was configured, but I cannot say I saw it working.
+- **Six failed verification checks:** The verifier flagged the security-group rules, the ALB's security-group attachment, the health-check grace period, the number of deployments, and the missing `configs/lab-05.env`. These show that some steps were either not fully applied or not captured the way the script expects.
+- **Effect on earlier labs:** Removing the direct access rule changed what the Lab 04 verification expects, which showed that later labs can invalidate the checks of earlier ones.
+
+### 8.4 Differences from real AWS
+
+On real AWS, the ALB would receive traffic and run health checks against the task IPs, so the target health states (`initial`, `healthy`, `draining`) would be visible and the fixed-response rule could be tested with a simple request. In Floci, these behaviours are only partly represented, so the lab validates configuration more than runtime behaviour. Any conclusion about real-world traffic handling should therefore be tested on actual AWS before being trusted.
+
+### 8.5 What I would do differently
+
+- Save the `configs/lab-05.env` file early and update it after each step, so the verifier and later labs have the values they need.
+- Run the verification script after each major step rather than only at the end, so problems are found while the context is fresh.
+- Set the `healthCheckGracePeriodSeconds` value when attaching the service to the target group, since tasks behind a load balancer need time to start before health checks count against them.
+- Confirm the task security-group rule with a compact CLI query immediately after applying it, instead of relying only on screenshots.
+- Capture target health at short intervals during a forced deployment to have a better chance of recording the draining state.
+- Consider adding an HTTPS listener with a certificate if this design were extended beyond practice, since port 443 is currently open without a listener behind it.
+
+### 8.6 Security reflection
+
+Opening ports 80 and 443 to `0.0.0.0/0` on the ALB security group is acceptable for an internet-facing load balancer, but the task security group must stay restricted. Keeping the tasks in private subnets without public IPs and removing the previous direct access rule reduces the attack surface to a single entry point. However, the verifier's failed checks on these exact rules mean the security configuration should be rechecked before the lab is considered complete.
+
+---
+
+## 9. Conclusion
 
 This practical configured the USMS Enrolment API behind an internet-facing Application Load Balancer in Floci. The ALB, IP-type target group, HTTP listener, fixed-response listener rule, and ECS service load-balancer attachment were created and verified through the AWS-compatible control-plane APIs. The earlier direct access path was removed, and the resource records checked after a Floci restart matched the normalized pre-restart records.
 
