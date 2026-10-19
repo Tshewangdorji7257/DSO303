@@ -563,3 +563,4 @@ Opening ports 80 and 443 to `0.0.0.0/0` on the ALB security group is acceptable 
 This practical configured the USMS Enrolment API behind an internet-facing Application Load Balancer in Floci. The ALB, IP-type target group, HTTP listener, fixed-response listener rule, and ECS service load-balancer attachment were created and verified through the AWS-compatible control-plane APIs. The earlier direct access path was removed, and the resource records checked after a Floci restart matched the normalized pre-restart records.
 
 Some outcomes remain incomplete or inconclusive: the live ALB request did not return an HTTP response, target draining was not conclusively observed, and the final verification script reported six failures. The security-group checks, ECS health-check grace period, deployment count, and missing Lab 05 configuration file should be resolved and the verifier rerun before treating the practical as fully passed.
+

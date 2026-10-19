@@ -56,3 +56,6 @@ After floci-down/up: cluster and nodegroup re-derived from list-clusters/list-no
 
 ## Step 22 - result (deviation)
 After floci-down/up, Floci logged "Restoring k3s container" and "Adopted surviving k3s container ... port 6500". Namespace, Deployments and ConfigMaps survived and the nodegroup stayed ACTIVE, but describe-cluster stayed CREATING for 5+ minutes. This looks like a Floci restore quirk: the k3s cluster is healthy while the AWS-side status was never promoted. Not fixed; I did not recreate the cluster. USMS_EKS_CLUSTER_STATUS in lab-07.env records CREATING as observed.
+
+## Section 8 - verify result
+verify-lab-07.sh: PASS=29 FAIL=1. The one failure is "cluster is ACTIVE": after floci-down/up the cluster stays CREATING (Floci restore quirk, k3s healthy). Kubernetes checks need KUBECONFIG=outputs/lab-07-kubeconfig.yaml exported in the shell.

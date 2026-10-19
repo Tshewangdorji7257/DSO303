@@ -51,7 +51,15 @@ else
   set -- $m
   if [ "$1" = "bind" ]; then
     ok "bind mount -> $2"
-    [ "$2" = "$FLOCI_HOST_DATA_DIR" ] || bad "...but that is NOT $FLOCI_HOST_DATA_DIR"
+    actual="$(printf '%s' "$2" | sed 's|\\|/|g')"
+    expected="$(printf '%s' "$FLOCI_HOST_DATA_DIR" | sed 's|^/\([a-zA-Z]\)/|\U\1:/|; s|/|/|g')"
+    actual_lc="$(printf '%s' "$actual" | tr '[:upper:]' '[:lower:]')"
+    expected_lc="$(printf '%s' "$expected" | tr '[:upper:]' '[:lower:]')"
+    if [ "$actual_lc" = "$expected_lc" ]; then
+      ok "Mount source matches the configured host directory."
+    else
+      bad "...but that is NOT $FLOCI_HOST_DATA_DIR"
+    fi
   else
     bad "/app/data is a Docker '$1', not your host directory."
     note "A literal '~' in the path is the usual cause; nothing expands it."

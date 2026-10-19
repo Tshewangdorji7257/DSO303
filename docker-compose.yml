@@ -38,7 +38,7 @@ services:
       # --- Persistence ----------------------------------------------------
       FLOCI_STORAGE_MODE: ${FLOCI_STORAGE_MODE:-hybrid}
       FLOCI_STORAGE_PERSISTENT_PATH: /app/data
-      FLOCI_STORAGE_HOST_PERSISTENT_PATH: ${FLOCI_HOST_DATA_DIR}
+      FLOCI_STORAGE_HOST_PERSISTENT_PATH: /c/Users/Dell/floci-data
 
       FLOCI_STORAGE_PRUNE_VOLUMES_ON_DELETE: "false"
 
