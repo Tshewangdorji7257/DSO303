@@ -1,11 +1,5 @@
 # Lab 08 Report: EKS Scaling and Service Exposure
 
-**Course project:** University Student Management System (USMS)
-**Role:** Junior Cloud Engineer, College of Science and Technology
-**Environment:** Floci (local AWS emulator) with a k3s-based Kubernetes cluster, using the AWS CLI and kubectl
-
----
-
 ## 1. Aim / Objective
 
 To scale the USMS workloads on Amazon EKS (Kubernetes) and expose them to users, by:
