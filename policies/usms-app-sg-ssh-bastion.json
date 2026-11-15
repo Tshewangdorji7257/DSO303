@@ -1,0 +1,13 @@
+[
+  {
+    "IpProtocol": "tcp",
+    "FromPort": 22,
+    "ToPort": 22,
+    "UserIdGroupPairs": [
+      {
+        "GroupId": "sg-a9cbc9eb19a2c0a4e",
+        "Description": "SSH from the USMS jump host tier only"
+      }
+    ]
+  }
+]
