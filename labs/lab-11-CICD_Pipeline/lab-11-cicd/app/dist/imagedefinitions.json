@@ -1,0 +1,6 @@
+[
+  {
+    "name": "enrolment-api",
+    "imageUri": "000000000000.dkr.ecr.us-east-1.localhost:4566/usms-enrolment:r7"
+  }
+]

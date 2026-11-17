@@ -348,16 +348,5 @@ Floci is a local emulator and has no AWS Management Console. Resource creation w
 
 The objectives of this practical were achieved. I scaled the USMS enrolment service manually and automatically, tested resource classes, node placement and disruption budgets, and exposed the application through every rung of the ladder from ClusterIP to Ingress. The only limits were emulator-related (node group update, host ports and controller-dependent addresses), and each was recorded honestly with an explanation of what real AWS would do.
 
-Key concepts learned were the four dimensions of scaling, how the HPA calculates replicas, why QoS and requests matter, and how Kubernetes objects map onto the load balancer and target group commands used in Lab 5. Skills developed include writing and applying manifests, reading autoscaler behaviour, diagnosing Pending pods and drift, and verifying persistence. EKS scaling and exposure is important because it lets a small team keep USMS responsive during very busy periods without paying for idle capacity during quiet ones.
-
----
-
-## 10. Appendix
-
-- Manifests: `manifests/lab-08/` (`10-hpa-enrolment.yaml`, `20-loadgen.yaml`, `30-pdb-gateway.yaml`, `40-service-nodeport.yaml`, `50-service-loadbalancer.yaml`, `60-ingress.yaml`)
-- Updated manifest: `manifests/lab-07/20-enrolment.yaml` (node selector added)
-- Scripts: `scripts/utilities/hpa-watch.sh`, `scripts/utilities/verify-lab-08.sh`, `scripts/cleanup/lab-08-cleanup.sh`
-- Config file: `configs/lab-08.env`
-- Notes: `notes/lab-08-notes.md`
-- Output files: `outputs/lab-08-baseline.txt`, `outputs/lab-08-nodegroup-before.json`, `outputs/lab-08-nodegroup-after.json`, `outputs/lab-08-before-restart.txt`, `outputs/lab-08-after-restart.txt`
+Key concepts learned were the four dimensions of scaling, how the HPA calculates replicas why QoS and requests matter, and how Kubernetes objects map onto the load balancer and target group commands used in Lab 5. Skills developed include writing and applying manifests, reading autoscaler behaviour, diagnosing Pending pods and drift, and verifying persistence. EKS scaling and exposure is important because it lets a small team keep USMS responsive during very busy periods without paying for idle capacity during quiet ones.
 
