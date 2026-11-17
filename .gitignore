@@ -27,3 +27,4 @@ Thumbs.db
 .vscode/
 .idea/__pycache__/
 labs/lab-11-cicd/app/dist/
+docker-compose.yml.bak-*
