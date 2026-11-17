@@ -2,7 +2,7 @@
 
 ## 1. Aim / Objective
 
-To scale the USMS workloads on Amazon EKS (Kubernetes) and expose them to users, by:
+To scale the USMS workloads on Amazon EKS (Kubernetes) and expose them to users by:
 
 - scaling pods manually, through manifests, and automatically with a HorizontalPodAutoscaler (HPA)
 - understanding resource requests, limits and QoS classes
