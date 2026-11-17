@@ -1,0 +1,100 @@
+import sys
+
+spec_path, out_path = sys.argv[1], sys.argv[2]
+ORDER = ("install", "pre_build", "build", "post_build")
+
+
+def with_pyyaml(path):
+    import yaml
+    doc = yaml.safe_load(open(path))
+    env = ((doc.get("env") or {}).get("variables") or {})
+    phases = {}
+    for name, body in (doc.get("phases") or {}).items():
+        phases[name] = list((body or {}).get("commands") or [])
+    return env, phases
+
+
+def minimal(path):
+    """Handles exactly the buildspec subset this course writes."""
+    env, phases = {}, {}
+    in_env = in_env_vars = in_phases = in_commands = False
+    phase = None
+    cmds = None
+    block = None
+    block_indent = 0
+
+    def close_block():
+        nonlocal block
+        if block is not None:
+            cmds.append("\n".join(block).rstrip())
+            block = None
+
+    for raw in open(path).read().splitlines():
+        if block is not None:
+            if raw.strip() == "":
+                block.append("")
+                continue
+            if (len(raw) - len(raw.lstrip())) >= block_indent:
+                block.append(raw[block_indent:])
+                continue
+            close_block()
+        stripped = raw.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        indent = len(raw) - len(raw.lstrip())
+        if indent == 0:
+            in_env = stripped.startswith("env:")
+            in_phases = stripped.startswith("phases:")
+            in_env_vars = in_commands = False
+            phase = None
+            continue
+        if in_env and indent == 2:
+            in_env_vars = (stripped == "variables:")
+            continue
+        if in_env_vars and indent == 4 and ":" in stripped:
+            k, v = stripped.split(":", 1)
+            env[k.strip()] = v.strip().strip('"').strip("'")
+            continue
+        if in_phases and indent == 2 and stripped.endswith(":"):
+            phase = stripped[:-1]
+            phases[phase] = []
+            cmds = phases[phase]
+            in_commands = False
+            continue
+        if in_phases and phase and indent == 4 and stripped == "commands:":
+            in_commands = True
+            continue
+        if in_commands and stripped.startswith("- "):
+            body = stripped[2:]
+            if body.strip() == "|":
+                block = []
+                block_indent = indent + 2
+            else:
+                cmds.append(body)
+            continue
+    close_block()
+    return env, phases
+
+
+try:
+    env, phases = with_pyyaml(spec_path)
+    parser = "PyYAML"
+except ImportError:
+    env, phases = minimal(spec_path)
+    parser = "built-in minimal parser"
+
+lines = ["#!/usr/bin/env bash", "set -Eeuo pipefail", ""]
+for k, v in env.items():
+    # A value already in the environment wins, like a CodeBuild project-level override.
+    lines.append('export %s="${%s:-%s}"' % (k, k, v))
+lines.append("")
+for name in ORDER:
+    if name not in phases:
+        continue
+    lines.append('echo "=== phase: %s ==="' % name)
+    lines.extend(phases[name])
+    lines.append("")
+lines.append('echo "=== all phases completed ==="')
+
+open(out_path, "w").write("\n".join(lines) + "\n")
+print("buildspec parsed with %s; %d phases" % (parser, len([p for p in ORDER if p in phases])))
