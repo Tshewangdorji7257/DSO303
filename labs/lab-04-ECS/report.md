@@ -16,6 +16,8 @@ The aim of this lab was to deploy the USMS enrolment API as a containerised serv
 
 ## 2. Architecture Built
 
+![alt text](<aws-architecture-diagram (9).png>)
+
 ```
 usms-ecs-cluster
  └── usms-enrolment-svc          ACTIVE   FARGATE
